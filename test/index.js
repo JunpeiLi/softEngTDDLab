@@ -105,9 +105,28 @@ test('recruiter function', function(t) {
 	// Other tests go here.
 
 
+	t.comment("Always hire astrology, but only as the last resort");
+	collArr = [
+		interns[5],
+		interns[0],
+		interns[8],
+	];
 
+	inputArr = collArr.slice();
+	console.log(inputArr[0].degree, interns[5].gpa);
+	console.log(inputArr[1].degree, interns[0].gpa);
+	console.log(inputArr[2].degree, interns[8].gpa);
+	t.ok(inputArr[0].gpa === 2.14 &&
+		inputArr[1].gpa == 2.82  &&
+		inputArr[2].gpa == 2.81, "test input is as expected");
 
+	inputArr[1].experiance = 0;
+	inputArr[0].degree = "astrology";
+	inputArr[2].experiance = 0;
 
+	retArr = recruiter.recruiter(inputArr);
+	t.deepEqual(retArr.length,3, "Returns expected number of inters, not removing astrology major");
+	t.deepEqual(retArr[2].degree, "astrology", "Astrology is employed as the last resort");
 
 
 
